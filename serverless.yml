@@ -1,10 +1,9 @@
 org: salinsuwu
-service: api-s3
+service: api-s3-upgraded
 
 provider:
   name: aws
   runtime: python3.12	
-  # Default memory size for functions (default: 256MB)
   memorySize: 256
   timeout: 30
   iam:
@@ -15,33 +14,43 @@ functions:
     handler: lista_objetos_bucket.lambda_handler
     events:
       - http:
-          path: listaObjetosBucket
+          path: /s3/bucket/lista-objetos
           method: post
+          cors: true
+          integration: lambda
 
   listaBuckets:
     handler: lista_buckets.lambda_handler
     events:
       - http:
-          path: listaBuckets
+          path: /s3/lista-buckets
           method: get
+          cors: true
+          integration: lambda
 
   crearBucket:
     handler: crear_bucket.lambda_handler
     events:
       - http:
-          path: crearBucket
+          path: /s3/crearBucket
           method: post
+          cors: true
+          integration: lambda
 
   crearDirectorio:
     handler: crear_directorio.lambda_handler
     events:
       - http:
-          path: crearDirectorio
+          path: /s3/bucket/crearDirectorio
           method: post
+          cors: true
+          integration: lambda          
 
   subirArchivo:
     handler: subir_archivo.lambda_handler
     events:
       - http:
-          path: subirArchivo
+          path: /s3/bucket/subirArchivo
           method: post
+          cors: true
+          integration: lambda          
